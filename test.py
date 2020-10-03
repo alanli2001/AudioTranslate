@@ -183,7 +183,8 @@ def listen_print_loop(responses, stream):
         # if result.result_end_time.seconds:
         #     result_nanos = result.result_end_time.nanos
 
-        stream.result_end_time = int((result_seconds * 1000) + (result_seconds2 / 1000000))
+        stream.result_end_time = int(
+            (result_seconds * 1000) + (result_seconds2 / 1000000))
 
         corrected_time = (
             stream.result_end_time
