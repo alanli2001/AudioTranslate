@@ -1,10 +1,10 @@
-"""Google Cloud Speech API sample application using the streaming API.
-NOTE: This module requires the dependencies `pyaudio` and `termcolor`.
-To install using pip:
-    pip install pyaudio
-    pip install termcolor
-Example usage:
-    python transcribe_streaming_infinite.py
+"""
+Installions:
+pip install pyaudio
+pip install termcolor
+pip install google-cloud-speech
+pip install googletrans
+pip install google-cloud
 """
 
 # [START speech_transcribe_infinite_streaming]
@@ -144,18 +144,6 @@ class ResumableMicrophoneStream:
 
 
 def listen_print_loop(responses, stream):
-    """Iterates through server responses and prints them.
-    The responses passed is a generator that will block until a response
-    is provided by the server.
-    Each response may contain multiple results, and each result may contain
-    multiple alternatives; for details, see https://goo.gl/tjCPAU.  Here we
-    print only the transcription for the top alternative of the top result.
-    In this case, responses are provided for interim results as well. If the
-    response is an interim one, print a line feed at the end of it, to allow
-    the next result to overwrite it, until the response is a final one. For the
-    final one, print a newline to preserve the finalized transcription.
-    """
-
     for response in responses:
 
         if get_current_time() - stream.start_time > STREAMING_LIMIT:
