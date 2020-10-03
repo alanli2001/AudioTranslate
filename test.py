@@ -12,7 +12,7 @@ Example usage:
 import re
 import sys
 import time
-
+from googletrans import Translator
 from google.cloud import speech
 import pyaudio
 from six.moves import queue
@@ -195,10 +195,11 @@ def listen_print_loop(responses, stream):
         # line, so subsequent lines will overwrite them.
 
         if result.is_final:
-
+            translator = Translator()
+            result = translator.translate(transcript, src='en', dest='es')
             sys.stdout.write(GREEN)
             sys.stdout.write("\033[K")
-            sys.stdout.write(str(corrected_time) + ": " + transcript + "\n")
+            sys.stdout.write(transcript + " -> " + result.text + "\n")
 
             stream.is_final_end_time = stream.result_end_time
             stream.last_transcript_was_final = True
