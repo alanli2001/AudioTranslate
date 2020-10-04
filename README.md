@@ -4,11 +4,13 @@ This application transcribes your audio and translate it to a language of your c
 deaf/hard of hearing or the speaker is speaking in a different language, this application will 
 take care of your needs.
 
-Installions: type the following commands into the command line.
+Installions: 
+1. Clone this repository.
+2. type the following commands into the command line.
 
 ```
-pip install pyaudio termcolor google-cloud-speech googletrans google-cloud Pillow Gooey
-pip install -U git+https://github.com/chriskiehl/Gooey/@issue-272-optional-radio-group-behavior
+$ pip install pyaudio termcolor google-cloud-speech googletrans google-cloud Pillow Gooey
+$ pip install -U git+https://github.com/chriskiehl/Gooey/@issue-272-optional-radio-group-behavior
 ```
 
 To transcribe audio from your audio output, you need to download [vb audio](
