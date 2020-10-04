@@ -8,6 +8,7 @@ pip install google-cloud
 pip install Pillow
 pip install Gooey
 pip install -U git+https://github.com/chriskiehl/Gooey/@issue-272-optional-radio-group-behavior
+https://vb-audio.com/Cable/index.htm
 """
 
 # [START speech_transcribe_infinite_streaming]
