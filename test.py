@@ -19,51 +19,7 @@ from google.cloud import speech
 import pyaudio
 from six.moves import queue
 
-###############################
-from google_auth_oauthlib import flow
 
-# TODO: Uncomment the line below to set the `launch_browser` variable.
-launch_browser = True
-#
-# The `launch_browser` boolean variable indicates if a local server is used
-# as the callback URL in the auth flow. A value of `True` is recommended,
-# but a local server does not work if accessing the application remotely,
-# such as over SSH or from a remote Jupyter notebook.
-
-appflow = flow.InstalledAppFlow.from_client_secrets_file(
-    "client_secrets.json", scopes=["https://www.googleapis.com/auth/bigquery"]
-)
-
-if launch_browser:
-    appflow.run_local_server()
-else:
-    appflow.run_console()
-
-credentials = appflow.credentials
-
-
-# TODO: Uncomment the line below to set the `project` variable.
-project = 'serene-exchange-291404'
-#
-# The `project` variable defines the project to be billed for query
-# processing. The user must have the bigquery.jobs.create permission on
-# this project to run a query. See:
-# https://cloud.google.com/bigquery/docs/access-control#permissions
-
-client = bigquery.Client(project=project, credentials=credentials)
-
-query_string = """SELECT name, SUM(number) as total
-FROM `bigquery-public-data.usa_names.usa_1910_current`
-WHERE name = 'alan'
-GROUP BY name;
-"""
-query_job = client.query(query_string)
-
-# Print the results.
-for row in query_job.result():  # Wait for the job to complete.
-    print("{}: {}".format(row["name"], row["total"]))
-
-###############################
 # Audio recording parameters
 STREAMING_LIMIT = 240000  # 4 minutes
 SAMPLE_RATE = 16000
