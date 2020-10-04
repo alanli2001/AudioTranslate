@@ -6,6 +6,8 @@ pip install google-cloud-speech
 pip install googletrans
 pip install google-cloud
 pip install Pillow
+pip install Gooey
+pip install -U git+https://github.com/chriskiehl/Gooey/@issue-272-optional-radio-group-behavior
 """
 
 # [START speech_transcribe_infinite_streaming]
@@ -31,7 +33,6 @@ YELLOW = "\033[0;33m"
 
 def get_current_time():
     """Return Current Time in MS."""
-
     return int(round(time.time() * 1000))
 
 
@@ -183,7 +184,6 @@ def listen_print_loop(responses, stream, lang):
             translator = Translator()
             # language codes - https://www.wikiwand.com/en/List_of_ISO_639-1_codes
             result = translator.translate(transcript, dest=lang)
-            sys.stdout.write("\033[K")
             sys.stdout.write(result.text + "\n")
 
             stream.is_final_end_time = stream.result_end_time
@@ -198,7 +198,7 @@ def listen_print_loop(responses, stream, lang):
             stream.last_transcript_was_final = False
 
 
-def main():
+def main(lang):
     """start bidirectional streaming from microphone input to speech API"""
 
     client = speech.SpeechClient()
@@ -213,17 +213,12 @@ def main():
     )
 
     mic_manager = ResumableMicrophoneStream(SAMPLE_RATE, CHUNK_SIZE)
-    print(mic_manager.chunk_size)
-    sys.stdout.write('\nListening, say "Quit" or "Exit" to stop.\n\n')
+    sys.stdout.write('\nTranscribing:\n\n')
     sys.stdout.write("=====================================================\n")
 
     with mic_manager as stream:
 
         while not stream.closed:
-            sys.stdout.write(
-                "\n" + ": NEW REQUEST\n"
-            )
-
             stream.audio_input = []
             audio_generator = stream.generator()
 
@@ -237,7 +232,7 @@ def main():
             )
 
             # Now, put the transcription responses to use.
-            listen_print_loop(responses, stream, "en")
+            listen_print_loop(responses, stream, lang)
 
             if stream.result_end_time > 0:
                 stream.final_request_end_time = stream.is_final_end_time
