@@ -10,7 +10,6 @@ pip install Pillow
 
 # [START speech_transcribe_infinite_streaming]
 
-from google.cloud import bigquery
 import re
 import sys
 import time
@@ -20,9 +19,9 @@ import pyaudio
 from six.moves import queue
 
 # Audio recording parameters
-STREAMING_LIMIT = 7200000  # 2 hr
-SAMPLE_RATE = 8000
-CHUNK_SIZE = int(SAMPLE_RATE / 100000)  # 100ms
+STREAMING_LIMIT = 240000  # 4 minutes
+SAMPLE_RATE = 16000
+CHUNK_SIZE = int(SAMPLE_RATE / 10)  # 100ms
 
 RED = "\033[0;31m"
 GREEN = "\033[0;32m"
@@ -198,7 +197,7 @@ def listen_print_loop(responses, stream, lang):
             stream.last_transcript_was_final = False
 
 
-def main():
+def main(lang):
     """start bidirectional streaming from microphone input to speech API"""
 
     client = speech.SpeechClient()
@@ -237,7 +236,7 @@ def main():
             )
 
             # Now, put the transcription responses to use.
-            listen_print_loop(responses, stream, "en")
+            listen_print_loop(responses, stream, lang)
 
             if stream.result_end_time > 0:
                 stream.final_request_end_time = stream.is_final_end_time
