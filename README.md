@@ -7,7 +7,8 @@ take care of your needs. Built for IvyHacks 2020.
 Installions:
 
 1. Clone this repository.
-2. Type the following commands into the command line.
+2. You're going to need to set up a [gcloud account](https://cloud.google.com/speech-to-text/docs/quickstart-gcloud)
+3. Type the following commands into the command line.
 
 ```
 $ pip install pyaudio termcolor google-cloud-speech googletrans google-cloud Pillow Gooey
@@ -20,4 +21,4 @@ set your output to "CABLE Input (VB-Audio Virtual Cable)" and input to
 
 If you just want to translate your own voice, then use your regular input device.
 
-To begin translation/transcription, run Transcription.py.
+To begin translation/transcription, run ZoomTranslate.py.
