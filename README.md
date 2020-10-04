@@ -1,4 +1,4 @@
-# ZoomTranslate
+# AudioTranslate
 
 This application transcribes your audio and translates it to a language of your choice. If you are
 deaf/hard of hearing or the speaker is speaking in a different language, this application will
@@ -6,7 +6,7 @@ take care of your needs. Built for IvyHacks 2020.
 
 ![](https://github.com/alanli2001/ZoomTranslate/blob/main/ZoomTranslate.png)
 
-# To run this program:
+## To run this program:
 
 1. Clone this repository.
 2. You're going to need to set up a [gcloud account](https://cloud.google.com/speech-to-text/docs/quickstart-gcloud)
