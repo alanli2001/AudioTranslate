@@ -1,7 +1,8 @@
 # ZoomTranslate
 
 This application helps translate and transcribe your audio. If you are deaf/hard of hearing
-or the speaker is speaking in a different language, this application will take care of your needs,
+or the speaker is speaking in a different language, this application will take care of your needs.
+Built for IvyHacks 2020.
 
 Installions: type the following commands into the command line.
 
