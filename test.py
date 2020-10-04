@@ -5,6 +5,7 @@ pip install termcolor
 pip install google-cloud-speech
 pip install googletrans
 pip install google-cloud
+pip install Pillow
 """
 
 # [START speech_transcribe_infinite_streaming]
@@ -143,7 +144,7 @@ class ResumableMicrophoneStream:
             yield b"".join(data)
 
 
-def listen_print_loop(responses, stream):
+def listen_print_loop(responses, stream, lang):
     for response in responses:
 
         if get_current_time() - stream.start_time > STREAMING_LIMIT:
@@ -161,15 +162,12 @@ def listen_print_loop(responses, stream):
         transcript = result.alternatives[0].transcript
 
         result_seconds = 0
-        #result_nanos = 0
 
         if result.result_end_time.seconds:
             result_seconds = result.result_end_time.seconds
 
         if result.result_end_time.seconds:
             result_seconds2 = result.result_end_time.seconds
-        # if result.result_end_time.seconds:
-        #     result_nanos = result.result_end_time.nanos
 
         stream.result_end_time = int(
             (result_seconds * 1000) + (result_seconds2 / 1000000))
@@ -179,33 +177,23 @@ def listen_print_loop(responses, stream):
             - stream.bridging_offset
             + (STREAMING_LIMIT * stream.restart_counter)
         )
-        # Display interim results, but with a carriage return at the end of the
-        # line, so subsequent lines will overwrite them.
 
         if result.is_final:
             translator = Translator()
             # language codes - https://www.wikiwand.com/en/List_of_ISO_639-1_codes
-            result = translator.translate(transcript, src='en', dest='es')
-            sys.stdout.write(GREEN)
+            result = translator.translate(transcript, dest=lang)
             sys.stdout.write("\033[K")
-            sys.stdout.write(transcript + " -> " + result.text + "\n")
+            sys.stdout.write(result.text + "\n")
 
             stream.is_final_end_time = stream.result_end_time
             stream.last_transcript_was_final = True
 
-            # Exit recognition if any of the transcribed phrases could be
-            # one of our keywords.
+            # Exit recognition
             if re.search(r"\b(exit|quit)\b", transcript, re.I):
-                sys.stdout.write(YELLOW)
                 sys.stdout.write("Exiting...\n")
                 stream.closed = True
                 break
-
         else:
-            # sys.stdout.write(RED)
-            # sys.stdout.write("\033[K")
-            #sys.stdout.write(str(corrected_time) + ": " + transcript + "\r")
-
             stream.last_transcript_was_final = False
 
 
@@ -225,18 +213,14 @@ def main():
 
     mic_manager = ResumableMicrophoneStream(SAMPLE_RATE, CHUNK_SIZE)
     print(mic_manager.chunk_size)
-    sys.stdout.write(YELLOW)
     sys.stdout.write('\nListening, say "Quit" or "Exit" to stop.\n\n')
-    sys.stdout.write("End (ms)       Transcript Results/Status\n")
     sys.stdout.write("=====================================================\n")
 
     with mic_manager as stream:
 
         while not stream.closed:
-            sys.stdout.write(YELLOW)
             sys.stdout.write(
-                "\n" + str(STREAMING_LIMIT *
-                           stream.restart_counter) + ": NEW REQUEST\n"
+                "\n" + ": NEW REQUEST\n"
             )
 
             stream.audio_input = []
@@ -252,7 +236,7 @@ def main():
             )
 
             # Now, put the transcription responses to use.
-            listen_print_loop(responses, stream)
+            listen_print_loop(responses, stream, "en")
 
             if stream.result_end_time > 0:
                 stream.final_request_end_time = stream.is_final_end_time
