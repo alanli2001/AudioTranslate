@@ -1,7 +1,8 @@
 # ZoomTranslate
 
-This application helps translate and transcribe your audio. If you are deaf/hard of hearing
-or the speaker is speaking in a different language, this application will take care of your needs,
+This application helps transcribe your audio and translate it to a language of your choice. If you
+are deaf/hard of hearing or the speaker is speaking in a different language, this application will 
+take care of your needs.
 
 Installions: type the following commands into the command line.
 
