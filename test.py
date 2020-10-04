@@ -161,7 +161,7 @@ def listen_print_loop(responses, stream):
         transcript = result.alternatives[0].transcript
 
         result_seconds = 0
-        result_nanos = 0
+        #result_nanos = 0
 
         if result.result_end_time.seconds:
             result_seconds = result.result_end_time.seconds
@@ -184,6 +184,7 @@ def listen_print_loop(responses, stream):
 
         if result.is_final:
             translator = Translator()
+            # language codes - https://www.wikiwand.com/en/List_of_ISO_639-1_codes
             result = translator.translate(transcript, src='en', dest='es')
             sys.stdout.write(GREEN)
             sys.stdout.write("\033[K")
@@ -201,9 +202,9 @@ def listen_print_loop(responses, stream):
                 break
 
         else:
-            sys.stdout.write(RED)
-            sys.stdout.write("\033[K")
-            sys.stdout.write(str(corrected_time) + ": " + transcript + "\r")
+            # sys.stdout.write(RED)
+            # sys.stdout.write("\033[K")
+            #sys.stdout.write(str(corrected_time) + ": " + transcript + "\r")
 
             stream.last_transcript_was_final = False
 
