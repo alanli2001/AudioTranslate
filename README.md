@@ -6,7 +6,7 @@ take care of your needs. Built for IvyHacks 2020.
 
 ![Image of Application](https://github.com/alanli2001/ZoomTranslate/blob/main/ZoomTranslate.png)
 
-#Installations:
+# Installations:
 
 1. Clone this repository.
 2. You're going to need to set up a [gcloud account](https://cloud.google.com/speech-to-text/docs/quickstart-gcloud)
