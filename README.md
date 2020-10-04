@@ -6,7 +6,7 @@ take care of your needs.
 
 Installions: 
 1. Clone this repository.
-2. type the following commands into the command line.
+2. Type the following commands into the command line.
 
 ```
 $ pip install pyaudio termcolor google-cloud-speech googletrans google-cloud Pillow Gooey
