@@ -3,8 +3,7 @@
 This application helps translate and transcribe your audio. If you are deaf/hard of hearing
 or the speaker is speaking in a different language, this application will take care of your needs,
 
-Installions:
-Type the following commands into the command line.
+Installions: type the following commands into the command line.
 
 ```
 pip install pyaudio termcolor google-cloud-speech googletrans google-cloud Pillow Gooey
